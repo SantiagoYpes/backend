@@ -1,24 +1,41 @@
 import User from "../models/User.js";
+import Book from "../models/Book.js";
 import { uploadContract } from "../libs/cloudinary.js";
 import Contract from "../models/Contract.js";
 import LogContract from "../models/LogContract.js";
 import jwt from "jsonwebtoken";
 import fs from "fs-extra";
 import bcrypt from "bcryptjs";
-export const getTeachers = async (req, res) => {
+
+let bookList =[
+  {
+    id: 'sa120320322', 
+    name: 'El caballo de troya',
+    urlImage: 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg',
+    isbn: '454545402032231', 
+    author: 'J.j Benitez', 
+    quality: 5, 
+    selleruser: 'santiyezu8@hotmail.com', 
+    quantity: 10, 
+    price: 50000,
+    description:'No hay', 
+    observations:'Pagina 3 rota', 
+    onSale:'true' }
+]
+export const getBooks = async (req, res) => {
   try {
-    const list = await User.find();
-    let listTeachers = list
-      .filter(function (teacher) {
-        return teacher.type === "teacher";
+    const list = await Book.find();
+    let listBooks = list
+      .filter(function (book) {
+        return book.onSale === "true";
       })
-      .map(function (teacher) {
-        return teacher;
+      .map(function (book) {
+        return book;
       });
-    listTeachers.forEach(function (objeto) {
+    listBooks.forEach(function (objeto) {
       delete objeto.propiedad;
     });
-    res.status(200).send(listTeachers);
+    res.status(200).send(listBooks);
   } catch (error) {
     console.log(error);
     res.status(400).error(error);
@@ -88,24 +105,23 @@ export const newLogContract = async (req, res) => {
     }
   });
 };
-export const newTeacher = async (req, res) => {
-  if (req.body.ced === "") {
+export const newBook = async (req, res) => {
+  /*if (req.body.ced === "") {
     res.status(400).send("Formulario Inválido");
-  } else {
+  } else {*/
     try {
-      console.log(req.body);
-      var salt = bcrypt.genSaltSync(10);
-      var hash = bcrypt.hashSync(req.body.password, salt);
-      req.body.password = hash;
-      const user = new User(req.body);
-      await user.save();
-      console.log("Profesor Creado");
-      res.status(201).send(user._id);
+      
+      //var salt = bcrypt.genSaltSync(10);
+      //var hash = bcrypt.hashSync(req.body.password, salt);
+      //req.body.password = hash;
+      const book = new Book(bookList[0]);
+      await book.save();
+      console.log("Libro Creado");
+      res.status(201).send(book._id);
     } catch (error) {
       res.status(400).send(error);
     }
   }
-};
 
 export const updateTeacher = (req, res) => res.send("Teacher updated");
 
