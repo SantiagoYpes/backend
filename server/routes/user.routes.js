@@ -1,11 +1,12 @@
 import { Router } from "express";
-import {loginUser, updateContract, updateUser} from "../controllers/users.controllers.js";
+import {loginUser, newUser, updateContract, updateUser} from "../controllers/users.controllers.js";
 const router = Router()
 
 
 router.post('/login', loginUser)
 router.post('/updateuser/:id',ensureToken, updateUser)
 router.post('/updatecontract/:id',ensureToken, updateContract)
+router.post('/newUser',newUser)
 export default router
 
 

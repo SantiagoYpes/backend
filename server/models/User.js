@@ -1,10 +1,8 @@
 import { Schema, model } from "mongoose";
-//import { transformAuthInfo } from "passport";
 
-// If I want that the title be a primary key
 const userSchema = new Schema(
   {
-    ced: {
+    email: {
       type: String,
       require: true,
       unique: true,
@@ -15,19 +13,7 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
-    lastname: {
-      type: String,
-      require: true,
-    },
-    email: {
-      type: String,
-      require: true,
-    },
-    valuehour: {
-      type: Number,
-      require: true,
-    },
-    cell: {
+    lastName: {
       type: String,
       require: true,
     },
@@ -35,15 +21,19 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
-    type: {
+    phone: {
       type: String,
       require: true,
     },
-    image: {
-      url: String,
-      public_id: String
+    password: {
+      type: String,
+      require: true,
     },
-   
+    role: {
+      type: Number,
+      require: true,
+    },
+
   },
   {
     timestamps: true,

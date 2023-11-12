@@ -1,10 +1,21 @@
 import User from "../models/User.js";
 import LogContract from "../models/LogContract.js";
-import Contract from "../models/Contract.js";
+import Contract from "../models/Order.js";
 import { uploadContract } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
+
+let userList = [
+  {
+    email: "julianh@gmail.com",
+    password: "admin123",
+    name: "Julián",
+    lastName: "Herrera",
+    phone: "301522",
+    role: 0
+  }
+]
 export const loginUser = async (req, res) => {
   console.log(req.body);
   const { email, pass } = req.body;
@@ -26,6 +37,24 @@ export const loginUser = async (req, res) => {
     });
 };
 
+export const newUser = async (req, res) => {
+  if (req.body.email === "") {
+    res.status(400).send("Formulario Inválido");
+  } else {
+    try {
+      let salt = bcrypt.genSaltSync(10);
+      let hash = bcrypt.hashSync(req.body.password, salt);
+      req.body.password = hash;
+      const user = new User(req.body);  
+      await user.save();
+      console.log("Usuario Creado");
+      res.status(201).send(user.email);
+    } catch (error) {
+      console.log(error)
+      res.status(400).send(error);
+    }
+  }
+}
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   try {
