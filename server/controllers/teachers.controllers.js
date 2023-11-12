@@ -7,93 +7,101 @@ import jwt from "jsonwebtoken";
 import fs from "fs-extra";
 import bcrypt from "bcryptjs";
 
-let bookList =[
+let bookList = [
   {
-    id: 'sa20131458',
-    name: 'Don Quijote de la Mancha',
-    urlImage: 'https://images.cdn1.buscalibre.com/fit-in/360x360/a6/18/a618be10eae5c2a608ec6e22e6917e29.jpg',
-    isbn: '644232800858454',
-    author: 'Miguel de Cervantes',
+    id: "sa20131458",
+    name: "Don Quijote de la Mancha",
+    urlImage:
+      "https://images.cdn1.buscalibre.com/fit-in/360x360/a6/18/a618be10eae5c2a608ec6e22e6917e29.jpg",
+    isbn: "644232800858454",
+    author: "Miguel de Cervantes",
     quality: 5,
-    selleruser: 'juliann4567@hotmail.com',
+    selleruser: "juliann4567@hotmail.com",
     quantity: 1,
     price: 35000,
-    description: 'El Quijote es una obra literaria escrita por Miguel de Cervantes Saavedra. Es considerada una de las obras más influyentes de la literatura española y se le considera la primera novela moderna',
-    observations: 'Ninguna',
-    onSale: 'true'
-},
-{
-    id: 'sa12931741',
-    name: 'La emperatriz de los etéreos',
-    urlImage: 'https://imagessl6.casadellibro.com/a/l/t5/06/9788420472706.jpg',
-    isbn: '569939226888700',
-    author: 'Laura Gallego García',
+    description:
+      "El Quijote es una obra literaria escrita por Miguel de Cervantes Saavedra. Es considerada una de las obras más influyentes de la literatura española y se le considera la primera novela moderna",
+    observations: "Ninguna",
+    onSale: "true",
+  },
+  {
+    id: "sa12931741",
+    name: "La emperatriz de los etéreos",
+    urlImage: "https://imagessl6.casadellibro.com/a/l/t5/06/9788420472706.jpg",
+    isbn: "569939226888700",
+    author: "Laura Gallego García",
     quality: 4,
-    selleruser: 'juliann4567@hotmail.com',
+    selleruser: "juliann4567@hotmail.com",
     quantity: 1,
     price: 15000,
-    description: 'La historia sigue a Bipa, quien vive en las Cuevas con su gente y no cree en los cuentos de hadas.',
-    observations: 'Portada algo rasguñada',
-    onSale: 'true'
-},
-{
-    id: 'sa219137134745',
-    name: 'El extraño caso del Dr. Jekyll y Mr. Hyde',
-    urlImage: 'https://images.cdn2.buscalibre.com/fit-in/360x360/ba/a9/baa984f1c8c486cf2587c37b339ebc0b.jpg',
-    isbn: '698098928794686',
-    author: 'Robert Louis Stevenson',
+    description:
+      "La historia sigue a Bipa, quien vive en las Cuevas con su gente y no cree en los cuentos de hadas.",
+    observations: "Portada algo rasguñada",
+    onSale: "true",
+  },
+  {
+    id: "sa219137134745",
+    name: "El extraño caso del Dr. Jekyll y Mr. Hyde",
+    urlImage:
+      "https://images.cdn2.buscalibre.com/fit-in/360x360/ba/a9/baa984f1c8c486cf2587c37b339ebc0b.jpg",
+    isbn: "698098928794686",
+    author: "Robert Louis Stevenson",
     quality: 4,
-    selleruser: 'juliann4567@hotmail.com',
+    selleruser: "juliann4567@hotmail.com",
     quantity: 1,
     price: 60000,
-    description: 'Es una novela corta publicada por primera vez en inglés en 1886. La historia trata sobre un abogado, Gabriel John Utterson, que investiga la extraña relación entre su viejo amigo, el Dr. Henry Jekyll, y el misántropo Edward Hyde.',
-    observations: 'Anotación en la página 15',
-    onSale: 'true'
-},
-{
-    id: 'sa89932327',
-    name: 'Cuentos de la selva',
-    urlImage: 'https://image.cdn1.buscalibre.com/5b58191a8863b5ce6c8b4567.RS500x500.jpg',
-    isbn: '049817956037864',
-    author: 'Horacio Quiroga',
+    description:
+      "Es una novela corta publicada por primera vez en inglés en 1886. La historia trata sobre un abogado, Gabriel John Utterson, que investiga la extraña relación entre su viejo amigo, el Dr. Henry Jekyll, y el misántropo Edward Hyde.",
+    observations: "Anotación en la página 15",
+    onSale: "true",
+  },
+  {
+    id: "sa89932327",
+    name: "Cuentos de la selva",
+    urlImage:
+      "https://image.cdn1.buscalibre.com/5b58191a8863b5ce6c8b4567.RS500x500.jpg",
+    isbn: "049817956037864",
+    author: "Horacio Quiroga",
     quality: 5,
-    selleruser: 'santiyezu8@hotmail.com',
+    selleruser: "santiyezu8@hotmail.com",
     quantity: 1,
     price: 10000,
-    description: 'Es un conjunto de 8 cuentos cortos relacionado a la selva',
-    observations: 'Ninguna',
-    onSale: 'true'
-},
-{
-    id: 'sa927438146',
-    name: 'El Cuervo',
-    urlImage: 'https://images.cdn3.buscalibre.com/fit-in/360x360/82/54/8254f97525fefd437779e36786312678.jpg',
-    isbn: '952739239644789',
-    author: 'Edgar Alan Poe',
+    description: "Es un conjunto de 8 cuentos cortos relacionado a la selva",
+    observations: "Ninguna",
+    onSale: "true",
+  },
+  {
+    id: "sa927438146",
+    name: "El Cuervo",
+    urlImage:
+      "https://images.cdn3.buscalibre.com/fit-in/360x360/82/54/8254f97525fefd437779e36786312678.jpg",
+    isbn: "952739239644789",
+    author: "Edgar Alan Poe",
     quality: 5,
-    selleruser: 'santiyezu8@hotmail.com',
+    selleruser: "santiyezu8@hotmail.com",
     quantity: 1,
     price: 10000,
-    description: 'Es un poema corto',
-    observations: 'Ninguna',
-    onSale: 'true'
-},
-{
-    id: 'sa92137812631',
-    name: 'La llamada de Cthulhu',
-    urlImage: 'https://images.cdn1.buscalibre.com/fit-in/360x360/b3/8e/b38eda3c48608c1c9c1f04089865ba32.jpg',
-    isbn: '956757564136394',
-    author: 'Howard Phillips Lovecraft',
+    description: "Es un poema corto",
+    observations: "Ninguna",
+    onSale: "true",
+  },
+  {
+    id: "sa92137812631",
+    name: "La llamada de Cthulhu",
+    urlImage:
+      "https://images.cdn1.buscalibre.com/fit-in/360x360/b3/8e/b38eda3c48608c1c9c1f04089865ba32.jpg",
+    isbn: "956757564136394",
+    author: "Howard Phillips Lovecraft",
     quality: 4,
-    selleruser: 'santiyezu8@hotmail.com',
+    selleruser: "santiyezu8@hotmail.com",
     quantity: 1,
     price: 100000,
-    description: 'El relato es uno de los más conocidos de Lovecraft y es considerado como el inicio del horror cósmico de los Mitos de Cthulhu',
-    observations: 'Ninguna',
-    onSale: 'true'
-},
-]
-
+    description:
+      "El relato es uno de los más conocidos de Lovecraft y es considerado como el inicio del horror cósmico de los Mitos de Cthulhu",
+    observations: "Ninguna",
+    onSale: "true",
+  },
+];
 
 export const getBooks = async (req, res) => {
   try {
@@ -117,13 +125,11 @@ export const getBooks = async (req, res) => {
 
 export const getBuyerUsers = async (req, res) => {
   try {
-        const list = await User.find();
-        let listUser = list;
-        listUser = listUser.filter((user)=>user.role ==0)
-        console.log(listUser);
-        res.status(200).send(listUser);
-
-    ;
+    const list = await User.find();
+    let listUser = list;
+    listUser = listUser.filter((user) => user.role == 0);
+    console.log(listUser);
+    res.status(200).send(listUser);
   } catch (error) {
     res.status(400).error(error);
   }
@@ -180,19 +186,15 @@ export const newBook = async (req, res) => {
   /*if (req.body.ced === "") {
     res.status(400).send("Formulario Inválido");
   } else {*/
-    try {
-      
-      //var salt = bcrypt.genSaltSync(10);
-      //var hash = bcrypt.hashSync(req.body.password, salt);
-      //req.body.password = hash;
-      const book = new Book(bookList[0]);
-      await book.save();
-      console.log("Libro Creado");
-      res.status(201).send(book._id);
-    } catch (error) {
-      res.status(400).send(error);
-    }
+  try {
+    const book = new Book(bookList[0]);
+    await book.save();
+    console.log("Libro Creado");
+    res.status(201).send(book._id);
+  } catch (error) {
+    res.status(400).send(error);
   }
+};
 
 export const updateTeacher = (req, res) => res.send("Teacher updated");
 
@@ -264,30 +266,25 @@ export const teacherId = async (req, res) => {
   });
 };
 
-export const getContract = async (req, res) => {
-  jwt.verify(req.token, "secret", async (err, data) => {
-    if (err) {
-      res.status(401).send("Token Inválido");
-    } else {
-      try {
-        const { id } = req.params;
-        const query = Contract.find({ ced: id });
-        query
-          .exec()
-          .then((contracts) => {
-            console.log(contracts);
-            res.status(200).send(contracts);
-            console.log("Busqueda Contrato");
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).send(err); // Maneja el error
-          });
-      } catch (error) {
-        res.status(400).send(error);
-      }
-    }
-  });
+export const getUserBooks = async (req, res) => {
+  try {
+    const { email } = req.params;
+    console.log(email);
+    const query = Book.find({ selleruser: email });
+    query
+      .exec()
+      .then((books) => {
+        console.log(books);
+        res.status(200).send(books);
+        console.log("Busqueda de los libros de un usuario");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send(err); // Maneja el error
+      });
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
 export const newContract = async (req, res) => {
