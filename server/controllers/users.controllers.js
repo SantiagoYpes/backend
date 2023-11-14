@@ -18,14 +18,19 @@ let userList = [
 ]
 export const loginUser = async (req, res) => {
   console.log(req.body);
-  const { email, pass } = req.body;
+  const { email, password } = req.body;
   const query = User.find({ email: email });
   query
     .exec()
     .then((users) => {
+      
       // Maneja los usuarios encontrados
-      const found = users.find((user) => bcrypt.compareSync(pass, user.password));
-      res.send(found);
+      const found = users.find((user) => bcrypt.compareSync(password, user.password));
+      if (found == undefined) {
+        res.status(404).send("No encontrado")
+      }else{
+        res.status(200).send(found);
+      }
     })
     .catch((err) => {
       console.log(err);
