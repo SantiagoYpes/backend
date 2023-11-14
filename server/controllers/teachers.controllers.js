@@ -6,6 +6,7 @@ import LogContract from "../models/LogContract.js";
 import jwt from "jsonwebtoken";
 import fs from "fs-extra";
 import bcrypt from "bcryptjs";
+import Order from "../models/Order.js";
 
 let bookList = [
   {
@@ -128,6 +129,17 @@ export const getAllUsers = async (req, res) => {
     const list = await User.find();
     console.log(list);
     res.status(200).send(list);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const getOrdersUser = async (req, res) => {
+  const { buyer } = req.params;
+  try {
+    const list = await Order.find({buyer:buyer});
+    let listUser = list;
+    res.status(200).send(listUser);
   } catch (error) {
     res.status(400).send(error);
   }
