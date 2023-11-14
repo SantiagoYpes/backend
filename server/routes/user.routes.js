@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {loginUser, newUser, updateContract, updateUser} from "../controllers/users.controllers.js";
+import {loginUser, newOrder, newUser, updateContract, updateUser} from "../controllers/users.controllers.js";
 const router = Router()
 
 
@@ -7,6 +7,7 @@ router.post('/login', loginUser)
 router.post('/updateuser/:id',ensureToken, updateUser)
 router.post('/updatecontract/:id',ensureToken, updateContract)
 router.post('/newUser',newUser)
+router.post('/newOrder',newOrder)
 export default router
 
 

@@ -5,6 +5,7 @@ import { uploadContract } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
+import Order from "../models/Order.js";
 
 let userList = [
   {
@@ -37,6 +38,26 @@ export const loginUser = async (req, res) => {
       res.status(500).send(err); // Maneja el error
     });
 };
+
+export const newOrder = async (req, res) => {
+  if (req.body.seller === "" || req.body.buyer ==="") {
+    res.status(400).send("Formulario Inválido");
+  } else {
+    try {
+      const order = new Order(req.body);  
+      await order.save();
+      console.log("orden Creado");
+      res.status(201).send(order);
+    } catch (error) {
+      console.log(error)
+      res.status(400).send(error);
+    }
+  }
+}
+
+
+
+
 
 export const newUser = async (req, res) => {
   if (req.body.email === "") {
