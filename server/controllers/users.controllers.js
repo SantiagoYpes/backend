@@ -25,11 +25,7 @@ export const loginUser = async (req, res) => {
     .then((users) => {
       // Maneja los usuarios encontrados
       const found = users.find((user) => bcrypt.compareSync(pass, user.password));
-      const userT = found._id
-      const token = jwt.sign({id:userT}, 'secret')
-      const response = { id: found._id, type: found.type, ced: found.ced, token:token };
-      console.log("encontrado");
-      res.send(response);
+      res.send(found);
     })
     .catch((err) => {
       console.log(err);
