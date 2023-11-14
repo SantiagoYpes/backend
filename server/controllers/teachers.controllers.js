@@ -204,6 +204,7 @@ export const newLogContract = async (req, res) => {
   });
 };
 export const newBook = async (req, res) => {
+  console.log(req.body);
   if (req.body.selleruser === "") {
     res.status(400).send("Formulario Inválido");
   } 
