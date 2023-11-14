@@ -123,6 +123,15 @@ export const getBooks = async (req, res) => {
   }
 };
 
+export const getAllUsers = async (req, res) => {
+  try {
+    const list = await User.find();
+    console.log(list);
+    res.status(200).send(list);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 export const getBuyerUsers = async (req, res) => {
   try {
     const list = await User.find();
@@ -131,7 +140,7 @@ export const getBuyerUsers = async (req, res) => {
     console.log(listUser);
     res.status(200).send(listUser);
   } catch (error) {
-    res.status(400).error(error);
+    res.status(400).send(error);
   }
 };
 
@@ -196,7 +205,24 @@ export const newBook = async (req, res) => {
   }
 };
 
-export const updateTeacher = (req, res) => res.send("Teacher updated");
+export const updateUser = async(req, res) =>{
+  try{
+    let book = req.body
+    console.log(book)
+    try{
+      let user = User.findOneAndUpdate({email:book.email},{name:book.name})
+      res.send(user);
+    }catch(error){
+      console.log(error);
+      res.status(400).send(error)
+    }
+    
+  }
+  catch(error){
+    res.status(400).send(error)
+  }
+
+}
 
 export const deleteTeacher = async (req, res) => {
   jwt.verify(req.token, "secret", async (err, data) => {
@@ -238,32 +264,19 @@ export const deleteContract = async (req, res) => {
   });
 };
 
-export const teacherId = async (req, res) => {
-  jwt.verify(req.token, "secret", async (err, data) => {
-    if (err) {
-      res.status(401).send("Token Inválido");
+export const getUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const book = await User.find({ email: email });
+    if (book.length != 0) {
+      res.json(book);
     } else {
-      try {
-        const { id } = req.params;
-        const teacher = await User.findById(id);
-        const { _id, ced, type, cell, email, name, lastname, valuehour } =
-          teacher;
-        const response = {
-          _id,
-          ced,
-          type,
-          cell,
-          email,
-          name,
-          lastname,
-          valuehour,
-        };
-        res.json(response);
-      } catch (error) {
-        res.status(400).send(error);
-      }
+      res.status(404).send("No se encontraron resultados");
     }
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
 };
 
 export const getUserBooks = async (req, res) => {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteContract, deleteTeacher, getUserBooks, getBuyerUsers, getLogContract, getBooks, newContract, newLogContract, newBook, teacherId, updateTeacher} from "../controllers/teachers.controllers.js";
+import { deleteContract, deleteTeacher, getUserBooks, getBuyerUsers, getLogContract, getBooks, newContract, newLogContract, newBook, getUserByEmail, updateUser, getAllUsers} from "../controllers/teachers.controllers.js";
 const router = Router()
 
 router.get('/hello', (req,res) => res.send("Hello World"))
@@ -9,12 +9,13 @@ router.post('/newlogcontract',ensureToken, newLogContract)
 
 router.get('/books', getBooks)
 router.get('/newBook', newBook)
-router.put('/putTeacher',ensureToken, updateTeacher)
+router.put('/updateUser', updateUser)
 router.delete('/deleteTeacher/:id',ensureToken, deleteTeacher)
 
-router.get('/teacher/:id',ensureToken, teacherId)
+router.get('/userByEmail/:email', getUserByEmail)
 router.post('/newContract',ensureToken, newContract)
 router.get('/getUsersBooks/:email', getUserBooks)
+router.get('/getAllUsers', getAllUsers)
 router.get('/getBuyerUsers', getBuyerUsers)
 router.delete('/deletecontract/:id',ensureToken, deleteContract)
 
