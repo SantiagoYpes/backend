@@ -41,6 +41,7 @@ export const loginUser = async (req, res) => {
 
 export const newOrder = async (req, res) => {
   if (req.body.seller === "" || req.body.buyer ==="") {
+    console.log(req.body);
     res.status(400).send("Formulario Inválido");
   } else {
     try {
