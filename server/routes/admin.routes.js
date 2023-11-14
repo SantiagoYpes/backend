@@ -8,7 +8,7 @@ router.get('/logcontract/:id',ensureToken, getLogContract)
 router.post('/newlogcontract',ensureToken, newLogContract)
 
 router.get('/books', getBooks)
-router.get('/newBook', newBook)
+router.post('/newBook', newBook)
 router.put('/updateUser', updateUser)
 router.delete('/deleteTeacher/:id',ensureToken, deleteTeacher)
 

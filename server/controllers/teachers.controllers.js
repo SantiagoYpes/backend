@@ -212,7 +212,7 @@ export const newBook = async (req, res) => {
     const book = new Book(req.body);
     await book.save();
     console.log("Libro Creado");
-    res.status(201).send(book._id);
+    res.status(201).send(book);
   } catch (error) {
     res.status(400).send(error);
   }
