@@ -204,11 +204,11 @@ export const newLogContract = async (req, res) => {
   });
 };
 export const newBook = async (req, res) => {
-  /*if (req.body.ced === "") {
+  if (req.body.selleruser === "") {
     res.status(400).send("Formulario Inválido");
-  } else {*/
+  } 
   try {
-    const book = new Book(bookList[0]);
+    const book = new Book(req.body);
     await book.save();
     console.log("Libro Creado");
     res.status(201).send(book._id);
