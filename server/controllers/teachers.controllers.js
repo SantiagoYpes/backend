@@ -282,7 +282,7 @@ export const getUserByEmail = async (req, res) => {
     const { email } = req.params;
     const book = await User.find({ email: email });
     if (book.length != 0) {
-      res.json(book);
+      res.json(book[0]);
     } else {
       res.status(404).send("No se encontraron resultados");
     }
